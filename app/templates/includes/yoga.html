@@ -11,12 +11,100 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/main.css') }}">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+  <style>
+    .resetExerciseButton button {
+    background: none;
+    border: 4px solid #708090;
+    cursor: pointer;
+    margin: 10px auto;
+    display: block;
+    width: 30%;
+    font-size: large;
+    font-weight: bold;
+    color: #708090;
+    border-radius: 10px;
+}
+
+.resetExerciseButton button:hover {
+    background: white;
+    transition: 0.3s;
+}
+
+.resetExerciseButton {
+    padding: 20px 0px;
+}
+
+.exerciseTitle {
+    text-align: center;
+    font-size: large;
+    font-weight: bold;
+    
+}
+
+.exerciseTimerText {
+    text-align: center;
+    font-size: x-large;
+    font-weight: bolder;
+}
+</style>
 </head>
 
 <body>
+
+  <script>
+    window.onload = function(name){
+    chooseYogaPose();
+}
+
+var yogaPoses = ["static/yoga/1.png", "static/yoga/2.png", "static/yoga/3.png", "static/yoga/4.png", "static/yoga/5.png", "static/yoga/6.png", "static/yoga/7.png", "static/yoga/8.png"]
+var refreshid = null;
+var timeGiven = 45;
+
+function chooseYogaPose(){
+    document.getElementById("yogaTimer").innerHTML = timeGiven;
+    clearInterval(refreshid);
+    yogaCounter(timeGiven);
+    var randomNum = Math.floor(Math.random() * (yogaPoses.length));
+    if (document.getElementById("yogaPose") != null) {
+        document.getElementById("yogaPose").src = yogaPoses[randomNum];
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    if (document.getElementById("resetYogaPose") != null) {
+      document.getElementById("resetYogaPose").addEventListener("click", chooseYogaPose);
+    }
+  });
+
+  function yogaCounter(counter){
+      refreshid =
+      setInterval( function(){
+          counter--;
+          if (counter >= 0){
+              document.getElementById("yogaTimer").innerHTML = counter;
+          }
+          if (counter == 0){
+            document.getElementById("yogaTimer").innerHTML = "Complete!";
+          }
+      }, 1000);
+
+  }
+  </script>
+
 {% include 'includes/navbar.html' %}
 
 
+    
+    <div style="padding: 2px">
+        <p class=exerciseTitle>Do the following pose for:</p>
+        <p id="yogaTimer" class="exerciseTimerText">45</p>
+        <div  class="exercisePose" align="center">
+            <img style="height:450px; width:400px; text-align:center" src= "yogaPosesImages/1.png" id="yogaPose"/>
+        </div>
+        <div class="resetExerciseButton">
+            <button id="resetYogaPose">Different Pose</button>
+        </div>
+    </div>
 
 
 
