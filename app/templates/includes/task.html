@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+	<title>My Productivity App</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	 crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/all.css') }}">
+  	<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/animate.css') }}">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Slabo+27px&display=swap" rel="stylesheet">
+
+   <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css"
+        integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w=="
+        crossorigin="anonymous" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+</head>
+
+<body>
+{% include 'includes/navbar.html' %}
+
+
+<div class="hv-light-purple hv-container hv-center" style="padding:10px 5px">
+            <h1 class="hv-xxxlarge" data-aos="fade-in" style="margin:auto" data-aos-delay="50"><b>Priority Space</b>
+            </h1>
+            <p class="hv-xlarge" data-aos="fade-in" data-aos-delay="200">List down all your priorities here! </p>
+        </div>
+
+        <section class="hv-row-padding hv-padding-top-64 hv-container hv-purple">
+
+            <div data-aos="fade-in" data-aos-delay="300">
+                <h1 class="hv-xlarge">
+                    <i class="fas fa-star" style="color:rgb(255, 241, 119)"></i> Rest if you must but don't you quit!
+                    <i class="fas fa-star" style="color:rgb(255, 241, 119)"></i>
+                </h1>
+            </div>
+
+            <style>
+                div {
+                    text-align: center;
+                }
+            </style>
+
+            <form data-aos="fade-in" data-aos-delay="400">
+                <input id="input1" type="text" class="todo-input" placeholder="One thing at a time" style="width:60%">
+                <button class="todo-button" type="submit">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+
+            </form>
+
+            <div class="todo-container">
+                <ul class="todo-list" style="padding-inline-start: 0px;width:60%"></ul>
+            </div>
+
+
+        </section>
+
+
+        <!-- initiate aos -->
+        <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+        <script>
+            AOS.init({ once: true, duration: "600" });
+        </script>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script>
+            $("#heart-trigger").click(function () {
+                $("li").toggleClass("visible");
+            });
+        </script>
+
+        <script>
+          const todoInput = document.querySelector('.todo-input');
+const todoButton = document.querySelector('.todo-button');
+const todoList = document.querySelector('.todo-list');
+
+// Event Listeners
+
+todoButton.addEventListener('click', addTodo);
+todoList.addEventListener("click", deleteCheck);
+
+// Functions
+function addTodo(e) {
+    event.preventDefault();
+
+    // Todo DIV
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todo');
+
+    // Create LI
+    const newTodo = document.createElement('li');
+    newTodo.innerText = todoInput.value;
+    newTodo.classList.add("todo-item");
+    todoDiv.appendChild(newTodo);
+
+    // CHECK MARK BUTTON
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = '<i class="fas fa-check"> </i>';
+    completedButton.classList.add("complete-btn");
+    todoDiv.appendChild(completedButton);
+
+    // TRASH BUTTON
+    const trashButton = document.createElement('button');
+    trashButton.innerHTML = '<i class="fas fa-trash"> </i>';
+    trashButton.classList.add("trash-btn");
+    todoDiv.appendChild(trashButton);
+
+    // APPEND TO LIST
+    todoList.appendChild(todoDiv);
+
+    // Clear Todo Input value
+    todoInput.value = "";
+
+}
+
+function deleteCheck(e) {
+    const item = e.target;
+
+    // DELETE TODO
+    if (item.classList[0] === "trash-btn") {
+        const todo = item.parentElement;
+        // Animation
+        todo.classList.add("fall");
+        todo.addEventListener("transitionend", function () {
+            todo.remove();
+        });
+    }
+
+    // Checkmark
+    if (item.classList[0] === "complete-btn") {
+        const todo = item.parentElement;
+        todo.classList.toggle("completed");
+    }
+}
+
+        </script>
+
+
+
+        <script>
+          (function() {
+  var test = document.createElement('input');
+  var isPlaceHolderSupported = 'placeholder' in test;
+
+  // Helpers
+  function extend(obj1, obj2) {
+    var obj = {};
+    for (var key in obj1) {
+      obj[key] = obj2[key] === undefined ? obj1[key] : obj2[key];
+    }
+    return obj;
+  }
+
+  var Actions = Object.freeze({
+    START: 'start',
+    STOP: 'stop',
+    NOTHING: false
+  });
+
+  var defaults = {
+    letterDelay: 100, //milliseconds
+    sentenceDelay: 1000, //milliseconds
+    loop: false,
+    startOnFocus: true,
+    shuffle: false,
+    showCursor: true,
+    cursor: '|',
+    autoStart: false,
+    onFocusAction: Actions.START,
+    onBlurAction: Actions.STOP
+  };
+
+  // Constructor: PlaceHolder
+  function PlaceHolder(el, texts, options) {
+    this.el = el;
+    this.texts = texts;
+    options = options || {};
+    this.options = extend(defaults, options);
+    // Translate deprecated `startOnFocus` option to new ones.
+    if (!this.options.startOnFocus) {
+      // TODO: add deprecation message
+      console.warn(
+        'Superplaceholder.js: `startOnFocus` option has been deprecated. Please use `onFocusAction`, `onBlurAction` and `autoStart`'
+      );
+
+      this.options.autoStart = true;
+      this.options.onFocusAction = Actions.NOTHING;
+      this.options.onBlurAction = Actions.NOTHING;
+    }
+    this.timeouts = [];
+    this.isPlaying = false;
+
+    var temp, randomIndex;
+    if (this.options.shuffle) {
+      for (var i = this.texts.length; i--; ) {
+        randomIndex = ~~(Math.random() * i);
+        temp = this.texts[randomIndex];
+        this.texts[randomIndex] = this.texts[i];
+        this.texts[i] = temp;
+      }
+    }
+
+    this.begin();
+  }
+
+  PlaceHolder.prototype.begin = function() {
+    var self = this;
+    self.originalPlaceholder = self.el.getAttribute('placeholder');
+
+    if (self.options.onFocusAction || self.options.onBlurAction) {
+      // Store to unbind later
+      self.listeners = {
+        focus: self.onFocus.bind(self),
+        blur: self.onBlur.bind(self)
+      };
+      self.el.addEventListener('focus', self.listeners.focus);
+      self.el.addEventListener('blur', self.listeners.blur);
+    }
+    if (self.options.autoStart) {
+      self.processText(0);
+    }
+  };
+
+  PlaceHolder.prototype.onFocus = function() {
+    if (this.options.onFocusAction === Actions.START) {
+      if (this.isInProgress()) {
+        return;
+      }
+      this.processText(0);
+    } else if (this.options.onFocusAction === Actions.STOP) {
+      this.cleanUp();
+    }
+  };
+
+  PlaceHolder.prototype.onBlur = function() {
+    if (this.options.onBlurAction === Actions.STOP) {
+      this.cleanUp();
+    } else if (this.options.onBlurAction === Actions.START) {
+      if (this.isInProgress()) {
+        return;
+      }
+      this.processText(0);
+    }
+  };
+
+  PlaceHolder.prototype.cleanUp = function() {
+    // Stop timeouts
+    for (var i = this.timeouts.length; i--; ) {
+      clearTimeout(this.timeouts[i]);
+    }
+    // null means there was no placeholder attribute initially.
+    if (this.originalPlaceholder === null) {
+      this.el.removeAttribute('placeholder');
+    } else {
+      this.el.setAttribute('placeholder', this.originalPlaceholder);
+    }
+    this.timeouts.length = 0;
+    this.isPlaying = false;
+  };
+
+  PlaceHolder.prototype.isInProgress = function() {
+    return this.isPlaying;
+  };
+
+  PlaceHolder.prototype.typeString = function(str, callback) {
+    var self = this,
+      timeout;
+
+    if (!str) {
+      return false;
+    }
+
+    function setTimeoutCallback(index) {
+      // Add cursor `|` after current substring unless we are showing last
+      // character of the string.
+      self.el.setAttribute(
+        'placeholder',
+        str.substr(0, index + 1) +
+          (index === str.length - 1 || !self.options.showCursor
+            ? ''
+            : self.options.cursor)
+      );
+      // Call the completion callback when last character is being printed
+      if (index === str.length - 1) {
+        callback();
+      }
+    }
+    for (var i = 0; i < str.length; i++) {
+      timeout = setTimeout(setTimeoutCallback, i * self.options.letterDelay, i);
+      self.timeouts.push(timeout);
+    }
+  };
+
+  PlaceHolder.prototype.processText = function(index) {
+    var self = this,
+      timeout;
+
+    this.isPlaying = true;
+
+    self.typeString(self.texts[index], function() {
+      // Empty the timeouts array
+      self.timeouts.length = 0;
+      if (!self.options.loop && !self.texts[index + 1]) {
+        self.isPlaying = false;
+      }
+      timeout = setTimeout(function() {
+        self.processText(
+          self.options.loop ? (index + 1) % self.texts.length : index + 1
+        );
+      }, self.options.sentenceDelay);
+      self.timeouts.push(timeout);
+    });
+  };
+
+  var superplaceholder = function(params) {
+    if (!isPlaceHolderSupported) {
+      return;
+    }
+    var instance = new PlaceHolder(params.el, params.sentences, params.options);
+    return {
+      start: function() {
+        if (instance.isInProgress()) {
+          return;
+        }
+        instance.processText(0);
+      },
+      stop: function() {
+        instance.cleanUp();
+      },
+      destroy: function() {
+        instance.cleanUp();
+        for (var eventName in instance.listeners) {
+          instance.el.removeEventListener(
+            eventName,
+            instance.listeners[eventName]
+          );
+        }
+      }
+    };
+  };
+
+  superplaceholder.Actions = Actions;
+
+  // open to the world.
+  // commonjs
+  if (typeof exports === 'object') {
+    module.exports = superplaceholder;
+  } else if (typeof define === 'function' && define.amd) {
+    // AMD module
+    define(function() {
+      return superplaceholder;
+    });
+  } else {
+    // Browser global
+    window.superplaceholder = superplaceholder;
+  }
+})();
+
+        </script>
+        <script>
+            superplaceholder({
+                el: input1,
+                sentences: ['Tasks of the day?', 'One thing at a time!'],
+                options: {
+                    loop: true,
+                    letterDelay: 200,
+                    autoStart: true
+                }
+            })
+
+        </script>
+
+
+
+
+{% include 'includes/footer.html' %}
+<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	 crossorigin="anonymous">
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+	 crossorigin="anonymous">
+	</script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf"
+	 crossorigin="anonymous">
+	</script>
+</body>
+
+</html>

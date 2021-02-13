@@ -1,0 +1,40 @@
+#logo{
+}
+body{
+  margin-top: 80px;
+  background-color: #ebeff5;
+  font-family: 'Slabo 27px', serif;
+
+}
+#total-orders{
+  background-color: #4cb4c7;
+}
+#orders-delivered{
+  background-color: #7abecc;
+}
+#orders-pending{
+  background-color: #7CD1C0;
+}
+
+.my-form {
+    display: flex;
+    flex-direction: column;
+}
+.my-form label {
+    .form-label;
+    padding: 5px;
+}
+.my-form input {
+    .form-control;
+    padding: 5px;
+}
+
+.hv-white,.hv-hover-white:hover{color:#9f9ec8!important;background-color:#fff!important}
+.hv-center{text-align:center}
+.hv-center{text-align:center!important}
+.hv-container:after,.hv-container:before
+{content:"";display:table;clear:both}
+.hv-xlarge{font-size:24px!important}
+.hv-xxlarge{font-size:36px!important}
+.hv-xxxlarge{font-size:48px!important}
+.hv-text-dark-green,.hv-hover-text-dark-green:hover{color:#5bb59c!important}
