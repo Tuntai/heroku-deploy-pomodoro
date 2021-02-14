@@ -1,4 +1,4 @@
-# heroku-deploy-pomodoro
+# Pomodoro
 Pomodoro - Your Productivity Buddy!It is made to support everyone who experience anxiety due to academic, social, financial, and career pressure.
 
 ## Features :information_desk_person:
@@ -7,7 +7,7 @@ The tools include:
  - :memo: A **Priority list** that allows individuals to arrange their tasks and focus on a things that are important, so they won’t be overwhelmed. This takes a proactive step towards facing issues of anxiety head-on, rather than procrastinating, which is known to cause further anxiety. <br>
  - 	:kneeling_woman: A simple **Yoga App**, for those who sit infront of the computer table for a long time!
  - :four_leaf_clover: A **Meditation tool** with soothing music for those who just need a breather and to regain their presence.
-
+ - :hourglass_flowing_sand: A **Pomodoro Timer** that helps you to divide your work into smaller intervals, separated by small breaks for maximum productivity.
 ## Technologies Used :hammer_and_wrench:
  - :construction: Back-End: Python-Flask Framework
  - :computer: Front-End: Bootstrap, Html5, Css3, JavaScript, jquery
